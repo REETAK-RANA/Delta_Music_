@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DELTA MUSIC Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <div class="sidebar">
+
+        <div class="logo">
+            △ DELTA MUSIC
+        </div>
+
+        <ul class="menu">
+
+            <li class="active">
+                <i class="fas fa-house"></i>
+                Home
+            </li>
+
+            <li>
+                <i class="fas fa-book"></i>
+                Library
+            </li>
+
+            <li>
+                <i class="fas fa-music"></i>
+                Playlists
+            </li>
+
+            <li>
+                <i class="fas fa-heart"></i>
+                Liked Songs
+            </li>
+
+            <li>
+                <i class="fas fa-clock"></i>
+                Recently Played
+            </li>
+
+            <li>
+                <i class="fas fa-download"></i>
+                Downloads
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="main-content">
+
+        <div class="topbar">
+
+            <div class="search-box">
+
+                <i class="fas fa-search"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search for songs, artists, albums...">
+
+            </div>
+
+            <div class="profile">
+
+                <img
+                    src="{{ url_for('static', filename='images/music-person.png') }}"
+                    alt="Profile">
+
+                <span>{{ username }}</span>
+
+            </div>
+
+        </div>
+
+        <div class="welcome-banner">
+
+            <div>
+
+                <h1>
+                    Welcome Back, {{ username }} 👋
+                </h1>
+
+                <p>
+                    Discover trending music today
+                </p>
+
+                <button type="button">
+                    <i class="fas fa-play"></i>
+                    Explore Now
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="section-title">
+            Trending Songs
+        </div>
+
+        <div class="songs-grid">
+
+            <div class="song-card"
+                 onclick="playSong('husn.mp3','Husn','Anuv Jain','{{ url_for('static', filename='images/husn.jpg') }}')">
+
+                <img src="{{ url_for('static', filename='images/husn.jpg') }}" alt="Husn">
+
+                <div>
+                    <h3>Husn</h3>
+                    <p>Anuv Jain</p>
+                </div>
+
+            </div>
+
+            <div class="song-card"
+                 onclick="playSong('heeriye.mp3','Heeriye','Arijit Singh','{{ url_for('static', filename='images/heeriye.jpg') }}')">
+
+                <img src="{{ url_for('static', filename='images/heeriye.jpg') }}" alt="Heeriye">
+
+                <div>
+                    <h3>Heeriye</h3>
+                    <p>Arijit Singh</p>
+                </div>
+
+            </div>
+
+            <div class="song-card"
+                 onclick="playSong('kesariya.mp3','Kesariya','Arijit Singh','{{ url_for('static', filename='images/kesariya.jpg') }}')">
+
+                <img src="{{ url_for('static', filename='images/kesariya.jpg') }}" alt="Kesariya">
+
+                <div>
+                    <h3>Kesariya</h3>
+                    <p>Arijit Singh</p>
+                </div>
+
+            </div>
+
+            <div class="song-card"
+                 onclick="playSong('pasoori.mp3','Pasoori','Ali Sethi','{{ url_for('static', filename='images/pasoori.jpg') }}')">
+
+                <img src="{{ url_for('static', filename='images/pasoori.jpg') }}" alt="Pasoori">
+
+                <div>
+                    <h3>Pasoori</h3>
+                    <p>Ali Sethi</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="music-player">
+
+    <div class="song-info">
+
+        <img
+            id="cover"
+            src="{{ url_for('static', filename='images/husn.jpg') }}"
+            alt="Cover">
+
+        <div>
+
+            <h4 id="songTitle">
+                No Song Playing
+            </h4>
+
+            <p id="artistName">
+                Choose a song
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="player-controls">
+
+        <button type="button" onclick="audio.play()">
+            <i class="fas fa-play"></i>
+        </button>
+
+        <button type="button" onclick="audio.pause()">
+            <i class="fas fa-pause"></i>
+        </button>
+
+    </div>
+
+    <audio
+        id="audio"
+        controls
+        preload="auto">
+    </audio>
+
+</div>
+
+<script>
+
+const audio = document.getElementById("audio");
+
+function playSong(song, title, artist, cover){
+
+    audio.pause();
+
+    audio.src = "/static/music/" + song;
+
+    audio.load();
+
+    document.getElementById("songTitle").innerText = title;
+    document.getElementById("artistName").innerText = artist;
+    document.getElementById("cover").src = cover;
+
+    audio.play()
+    .catch(error => {
+        console.log(error);
+    });
+
+}
+
+</script>
+
+</body>
+</html>
